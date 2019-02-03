@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>You've been invited!</h1>
+    <p>
+      <%= @sender.name.capitalize %> invited you to <%= @family.family_name %> on FamNet!
+    </p>
+    <p>
+      We've already added you behind the screen, so next time you login, just select <%= @family.family_name %>.
+    </p>
+    <h3>What's FamNet?</h3>
+    <p>
+    FamNet is an Open Source project to create an online "closed" social network that allows<br>
+    Families to create their own Family group to post pictures, updates, family recipies,<br>
+    or to organize family events. The creators, started this because they wanted a central<br>
+    online location that they could store their own extended family's recipes and photos while<br>
+    making it easier to organize large family events.<br>
+    Another major issue was the topic of privacy, this being a default template email, means someone<br>
+    has hosted their own instance of the software somewhere. That means, no one, except people who access<br>
+    the software can see the things you share on the application.<br>
+    Moreover, it means you're not the product, but rather a user of the product. :)<br>
+    </p>
+    <p>
+    Once, you've used the app for a bit, drop by our repo on <a>GitHub</a> and look around.<br>
+    We love contributors, and if you've got a feature request or found a bug, create a <a>issue</a>!<br>
+    </p>
+  </body>
+</html>
