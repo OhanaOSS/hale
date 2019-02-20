@@ -64,7 +64,8 @@
     new_member.avatar.attach(io: File.open(Rails.root.to_s + "/spec/fixtures/images/img.jpg"), filename: "img.jpg", content_type: "image/jpg")
     FamilyMember.create(
       family_id: rand(1..Family.count),
-      member_id: new_member.id
+      member_id: new_member.id,
+      authorized_at: DateTime.now
     )  
   end
   t3 = Time.now.to_i
