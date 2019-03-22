@@ -6,6 +6,19 @@ class API::V1::FamiliesController < ApplicationController
     render json: @families, each_serializer: FamilySerializer, adapter: :json_api
   end
 
+  def authorized_families
+    begin
+      @families = current_user.families
+      authorize @families
+      render json: @families, each_serializer: FamilySerializer, adapter: :json_api
+    rescue Pundit::NotAuthorizedError
+      @families.errors.add(:id, :forbidden, message: "current user is not authorized to view these families")
+      render :json => { errors: @family.errors.full_messages }, :status => :forbidden
+    rescue ActiveRecord::RecordNotFound
+      render :json => {}, :status => :not_found
+    end
+  end
+
   def show
     begin
       @family = Family.find(params[:id])
@@ -19,6 +32,7 @@ class API::V1::FamiliesController < ApplicationController
       render :json => {}, :status => :not_found
     end
   end
+  
   def update
     begin
       @family = Family.find(params[:id])

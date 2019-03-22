@@ -7,6 +7,11 @@ class FamilyPolicy < ApplicationPolicy
     @record = record
   end
 
+  def authorized_families?
+    authorized_family_ids = current_user.family_members.where.not(authorized_at: nil).pluck(:family_id)
+    record.pluck(:id) === authorized_family_ids
+  end
+
   def show?
     current_user.family_ids.include?(record.id)
   end

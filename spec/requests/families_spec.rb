@@ -4,8 +4,9 @@ RSpec.describe "Families", type: :request do
   describe ':: Members / Same Family ::' do
     before do
       @family = FactoryBot.create(:family)
-      family_member = FactoryBot.create(:family_member, family_id: @family.id)
+      family_member = FactoryBot.create(:family_member, family_id: @family.id, authorized_at: DateTime.now)
       @member = family_member.member
+      FactoryBot.create(:family_member, member_id: @member.id, authorized_at: DateTime.now)
       login_auth(@member)
     end
     context "GET /families Family#index" do
@@ -27,6 +28,30 @@ RSpec.describe "Families", type: :request do
         expected = Family.count
         expect(response).to have_http_status(200)
         expect(actual).to eq(expected)
+      end
+    end
+    context "GET /families Family#authorized_index" do
+      before(:each) do
+        @auth_headers = @member.create_new_auth_token
+      end
+      it "200 status and matches schema" do
+        get '/v1/authorized_families', :headers => @auth_headers
+        actual = JSON.parse(response.body)["data"].first
+        expect(response).to have_http_status(200)
+        expect(actual).to include("type")
+        expect(actual).to include("id")
+        expect(actual["attributes"]).to include("family-name")
+        expect(actual["links"]).to include("self")
+      end
+      it 'and can only get authorized records' do
+        get '/v1/authorized_families', :headers => @auth_headers
+        actual = JSON.parse(response.body)["data"].count
+        actual_ids = JSON.parse(response.body)["data"].map {|obj| obj["id"].to_i}
+        expected = @member.families.count
+        expected_ids = @member.families.pluck(:id)
+        expect(response).to have_http_status(200)
+        expect(actual).to eq(expected)
+        expect(actual_ids).to eq(expected_ids)
       end
     end
     context "GET /families/:id Family#show" do
@@ -339,7 +364,8 @@ RSpec.describe "Families", type: :request do
       @other_family = FactoryBot.create(:family)
       @non_family_member = FactoryBot.create(:family_member, family_id: @other_family.id).member
       @family = FactoryBot.create(:family)
-      @member = FactoryBot.create(:family_member, family_id: @family.id).member
+      @member = FactoryBot.create(:family_member, family_id: @family.id, authorized_at: DateTime.now).member
+      FactoryBot.create(:family_member, member_id: @member.id, authorized_at: DateTime.now)
     end
     context "GET /families Family#index" do
       before(:each) do
@@ -360,6 +386,30 @@ RSpec.describe "Families", type: :request do
         expected = Family.count
         expect(response).to have_http_status(200)
         expect(actual).to eq(expected)
+      end
+    end
+    context "GET /families Family#authorized_index" do
+      before(:each) do
+        @auth_headers = @member.create_new_auth_token
+      end
+      it "200 status and matches schema" do
+        get '/v1/authorized_families', :headers => @auth_headers
+        actual = JSON.parse(response.body)["data"].first
+        expect(response).to have_http_status(200)
+        expect(actual).to include("type")
+        expect(actual).to include("id")
+        expect(actual["attributes"]).to include("family-name")
+        expect(actual["links"]).to include("self")
+      end
+      it 'and can only get authorized records' do
+        get '/v1/authorized_families', :headers => @auth_headers
+        actual = JSON.parse(response.body)["data"].count
+        actual_ids = JSON.parse(response.body)["data"].map {|obj| obj["id"].to_i}
+        expected = @member.families.count
+        expected_ids = @member.families.pluck(:id)
+        expect(response).to have_http_status(200)
+        expect(actual).to eq(expected)
+        expect(actual_ids).to eq(expected_ids)
       end
     end
     context "GET /families/:id Family#show" do
@@ -618,6 +668,12 @@ RSpec.describe "Families", type: :request do
         expected = Family.count
         expect(response).to have_http_status(200)
         expect(actual).to eq(expected)
+      end
+    end
+    context "GET /families Family#authorized_index" do
+      it "returns a 401 error saying they are not authenticated" do
+        get "/v1/families/#{@family.id}"
+        expect(response).to have_http_status(401)
       end
     end
     context "GET /families/:id Family#show" do

@@ -57,6 +57,7 @@ Rails.application.routes.draw do
         end
       end
       resources :families, only: [:index, :show, :update, :destroy]
+      get 'authorized_families', action: :authorized_families, controller: 'families'
       post 'families', action: :invite_to, controller: 'families'
       resources :family_configs, only: [:show, :update]
     end #v1
