@@ -74,6 +74,6 @@ class API::V1::MembersController < ApplicationController
     params.require(:member).permit(:user_role, :email, :password, :name, :surname)
   end
   def member_params
-    params.require(:member).permit(:id, :attributes =>[:avatar, :name, :surname, :nickname, :gender, :bio, :birthday, :instagram, :email, :addresses => [:type, "line-1", "line-2", :city, :state, :postal], :contacts => [:home, :work, :cell] ])
+    params.require(:member).permit(:id, :attributes =>[:avatar, :name, :surname, :nickname, :gender, :bio, :birthday, :instagram, :email, :addresses => ["address-type", :prefix, :number, :street, :type, "sec-unit-num", "sec-unit-type", :city, :state, :zip], :contacts => [:home, :work, :cell] ])
   end
 end

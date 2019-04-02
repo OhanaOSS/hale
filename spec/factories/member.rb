@@ -14,9 +14,10 @@ FactoryBot.define do
       # samples two schemas
       contacts { [{cell: Faker::PhoneNumber.cell_phone,home: Faker::PhoneNumber.cell_phone,work: Faker::PhoneNumber.cell_phone}, {cell: Faker::PhoneNumber.cell_phone}].sample }
       # samples two schemas
-      addresses { [{"type": ["home", "vacation"].sample, "line-1": Faker::Address.street_address,"line-2": "","city": Faker::Address.city,"state": Faker::Address.state_abbr,"postal": Faker::Address.postcode},{"type": "work", "line-1": Faker::Address.street_address,"line-2": "Building #{Faker::Address.building_number}","city": Faker::Address.city,"state": Faker::Address.state_abbr,"postal": Faker::Address.postcode},{"type":["home", "vacation"].sample, "line-1": Faker::Address.street_address,"line-2": "","city": Faker::Address.city,"state": Faker::Address.state_abbr,"postal": Faker::Address.postcode}].sample }
+      # strange error
+      addresses { [{"address-type": ["home", "vacation"].sample, "prefix": ["N","S","W","E", ""].sample, "number": Faker::Address.building_number.to_s, "street": Faker::Address.street_name, "type": Faker::Address.street_suffix, "sec-unit-num": rand(1..10).to_s, "sec-unit-type": ["Apt.", "Bld.", "Dorm."].sample, "city": Faker::Address.city,"state": Faker::Address.state_abbr,"zip": Faker::Address.zip_code.to_s}][0]}
       gender { [0,1,2].sample }
-      bio {[Faker::FamilyGuy.quote, Faker::HarryPotter.quote].sample}
+      bio {[Faker::TvShows::FamilyGuy.quote, Faker::Movies::HarryPotter.quote].sample}
       birthday { Faker::Date.birthday(18, 65).to_datetime }
       instagram {"@foobar"}
 
