@@ -8,7 +8,7 @@ class FamilyPolicy < ApplicationPolicy
   end
 
   def authorized_families?
-    authorized_family_ids = current_user.family_members.where.not(authorized_at: nil).pluck(:family_id)
+    authorized_family_ids = current_user.family_members.order('family_id ASC').where.not(authorized_at: nil).pluck(:family_id)
     record.pluck(:id) === authorized_family_ids
   end
 

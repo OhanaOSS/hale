@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  require "pry"
   include DeviseTokenAuth::Concerns::SetUserByToken
   include Pundit
 

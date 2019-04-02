@@ -93,6 +93,10 @@ class API::V1::PostsController < ApplicationController
       params.require(:post).permit(:id, :attributes => [:body, :media, { :location => [] }, :attachment, :locked, :family_id, :member_id])
     end
     def update_params
-      params.require(:post).permit(:id, :attributes => [:body, :media, { :location => [] }, :attachment, :locked])
+      if params["media"].class == ActionDispatch::Http::UploadedFile
+        params.permit([:id, :body, :media, { :location => [] }, :attachment, :locked])
+      else
+        params.require(:post).permit(:id, :attributes => [:body, :media, { :location => [] }, :attachment, :locked])
+      end
     end
 end

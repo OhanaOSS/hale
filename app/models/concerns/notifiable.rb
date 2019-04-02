@@ -9,6 +9,7 @@ module Notifiable
   end
 
   def notify_members
+    return if destroyed?
     @parent_klass = [Post, Event, Recipe].detect { |i| self.class == i }
     @child_klass = [Comment, CommentReply, Reaction, EventRsvp].detect { |i| self.class == i }
 

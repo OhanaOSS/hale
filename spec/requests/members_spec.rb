@@ -13,7 +13,7 @@ RSpec.describe "Member API", type: :request do
     @provided_avatar_filename = 'img.jpg'
     @provided_avatar_content_type = 'avatar/jpg'
 
-    @default_avatar_file = "assets/images/default_avatar.png"
+    @default_avatar_file = "images/default_avatar.png"
   end
   describe ':: Members / Same Family ::' do
     before do
@@ -182,7 +182,7 @@ RSpec.describe "Member API", type: :request do
         get "/v1/members/#{default_avatar_member.id}", :headers => @auth_headers
         expect(default_avatar_member.reload.avatar.attached?).to be_falsey
         avatar_url = JSON.parse(response.body)["data"]["attributes"]["avatar"]
-        default_avatar_url = "assets/images/default_avatar.png"
+        default_avatar_url = "images/default_avatar.png"
         expect(avatar_url).to eq(default_avatar_url)
       end
       context ' :: Includes :: ' do

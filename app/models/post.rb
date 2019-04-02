@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  default_scope { order(created_at: :desc) }
   include Interaction
   include Commentable
   include Notifiable

@@ -10,7 +10,7 @@ class InviteMailer < ApplicationMailer
     @recipient = @invite.email
     # host = ENV['HOST']
     # @url  = "#{host}/login"
-    mail(to: @recipient, subject: "You've been invited by #{@sender.name} to join the #{@family.family_name} family on FamNet!")
+    mail(to: @recipient, subject: "You've been invited by #{@sender.name} to join the #{@family.family_name} family on Ohana!")
   end
 
   def new_user_invite(invite, url)
@@ -21,7 +21,7 @@ class InviteMailer < ApplicationMailer
     host = ENV['HOST'] # has a weird / before  | '/http://example.com:3000'
     @registration_url = url
     # @url  = "#{host}/login"
-    mail(to: @recipient, subject: "You've been invited by #{@sender.name} to join the #{@family.family_name} family on FamNet!")
+    mail(to: @recipient, subject: "You've been invited by #{@sender.name} to join the #{@family.family_name} family on Ohana!")
   end
 
 end

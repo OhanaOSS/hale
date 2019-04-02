@@ -12,6 +12,8 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  # server static asssets
+  config.public_file_server.enabled = true
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join('tmp', 'caching-dev.txt').exist?
@@ -44,6 +46,20 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+ # Use the lowest log level to ensure availability of diagnostic information
+  # when problems arise.
+  # config.log_level = :debug
+
+  # Prepend all log lines with the following tags.
+  # config.log_tags = [ :request_id ]
+
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  # config.log_formatter = ::Logger::Formatter.new
+
+
+    # logger           = ActiveSupport::Logger.new(STDOUT)
+    # logger.formatter = config.log_formatter
+    # config.logger    = ActiveSupport::TaggedLogging.new(logger)
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

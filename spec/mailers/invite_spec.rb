@@ -12,7 +12,7 @@ RSpec.describe InviteMailer, type: :mailer do
     let(:mail) { described_class.existing_user_invite(@invite).deliver }
 
     it 'renders the subject' do
-      expect(mail.subject).to eq("You've been invited by #{@sender.member.name.capitalize} to join the #{@family_name} family on FamNet!")
+      expect(mail.subject).to eq("You've been invited by #{@sender.member.name.capitalize} to join the #{@family_name} family on Ohana!")
     end
     it 'renders the recipient email' do
       expect(mail.to).to eq([@recipient.member.email])
@@ -34,7 +34,7 @@ RSpec.describe InviteMailer, type: :mailer do
     let(:mail) {InviteMailer.new_user_invite(@invite, new_api_v1_member_registration_url(:invite_token => @invite.token)).deliver}
 
     it 'renders the subject' do
-      expect(mail.subject).to eq("You've been invited by #{@sender.member.name.capitalize} to join the #{@family_name} family on FamNet!")
+      expect(mail.subject).to eq("You've been invited by #{@sender.member.name.capitalize} to join the #{@family_name} family on Ohana!")
     end
     it 'renders the recipient email' do
       expect(mail.to).to eq([@invite.email])
