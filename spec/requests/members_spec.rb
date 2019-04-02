@@ -233,7 +233,6 @@ RSpec.describe "Member API", type: :request do
         @comparable = @member
         update_put = FactoryBot.build(:member_profile, id: @member.id )
         update_patch = FactoryBot.build(:member_profile, id: @member.id )
-
         @update_put_request_params = {
           "id": @comparable.id,
           "member": {

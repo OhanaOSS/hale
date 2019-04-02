@@ -65,14 +65,14 @@ RSpec.describe Member, type: :model do
       end
     end
     describe 'Column Formats' do
-      it 'Contacts is not valid unless hash' do
+      it 'Contacts is not valid unless array' do
         subject = FactoryBot.build(:member)
-        subject.contacts = []
+        subject.contacts = {}
         expect(subject).to_not be_valid
       end
-      it 'Addresses is not valid unless hash' do
+      it 'Addresses is not valid unless array' do
         subject = FactoryBot.build(:member)
-        subject.addresses = []
+        subject.addresses = {}
         expect(subject).to_not be_valid
       end
     end
