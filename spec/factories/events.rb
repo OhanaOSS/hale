@@ -5,7 +5,7 @@ FactoryBot.define do
     event_start { Faker::Date.forward(5.days) }
     event_end { Faker::Date.forward(5.days) }
     event_allday { [true, false].sample }
-    location { [Faker::Address.latitude.to_f.truncate(15), Faker::Address.longitude.to_f.truncate(15)] }
+    location { [(Faker::Address.latitude.to_f * 100000000000000).floor / 100000000000000.0, (Faker::Address.longitude.to_f * 100000000000000).floor / 100000000000000.0] }
     potluck { [true, false].sample }
     locked { [true, false].sample }
     # family_id {  } gets passed

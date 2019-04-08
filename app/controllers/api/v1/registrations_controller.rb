@@ -7,14 +7,14 @@ class API::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
           invite = Invite.find_by_token(@token)
           invite.update_attributes(recipient_id: resource.id) # update the recipient_id
           create_new_family_member(invite.family_id) # create new family member based on @token.family
+        elsif @family_params.present? && @family_params[:family_id].present? && !@invite_params.present?
+          create_new_family_member(@family_params[:family_id])
         elsif @family_params.present? && @family_params[:family_name].present?
           if @family_params[:config].present?
             create_new_family(family_name: @family_params[:family_name], config: @family_params[:config])
           else
             create_new_family(family_name: @family_params[:family_name]) 
           end
-        elsif @family_params.present? && @family_params[:family_id].present? && !@invite_params.present?
-          create_new_family_member(@family_params[:family_id])
         else
           # whoops something went wrong
         end

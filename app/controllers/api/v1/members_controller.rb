@@ -20,7 +20,7 @@ class API::V1::MembersController < ApplicationController
     begin
       @member = Member.find(params[:id])
       authorize @member
-      @member.assign_attributes(member_params)
+      @member.assign_attributes(update_params)
       if @member.save
         render json: ActiveModelSerializers::SerializableResource.new(@member, each_serializer: ProfileSerializer, scope: current_user, scope_name: :current_user, adapter: :json_api)
       else
@@ -72,6 +72,13 @@ class API::V1::MembersController < ApplicationController
   def create_member_params
     params.require(:family).permit(:family_id)
     params.require(:member).permit(:user_role, :email, :password, :name, :surname)
+  end
+  def update_params
+    if params["avatar"].class == ActionDispatch::Http::UploadedFile
+      params.permit(:id, :avatar, :name, :surname, :nickname, :gender, :bio, :birthday, :instagram, :email, :addresses => ["address-type", :prefix, :number, :street, :type, "sec-unit-num", "sec-unit-type", :city, :state, :zip], :contacts => [:home, :work, :cell])
+    else
+      params.require(:member).permit(:id, :attributes =>[:avatar, :name, :surname, :nickname, :gender, :bio, :birthday, :instagram, :email, :addresses => ["address-type", :prefix, :number, :street, :type, "sec-unit-num", "sec-unit-type", :city, :state, :zip], :contacts => [:home, :work, :cell] ])
+    end
   end
   def member_params
     params.require(:member).permit(:id, :attributes =>[:avatar, :name, :surname, :nickname, :gender, :bio, :birthday, :instagram, :email, :addresses => ["address-type", :prefix, :number, :street, :type, "sec-unit-num", "sec-unit-type", :city, :state, :zip], :contacts => [:home, :work, :cell] ])

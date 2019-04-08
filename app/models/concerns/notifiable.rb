@@ -78,7 +78,7 @@ module Notifiable
   def get_polymorphic_klass(target)
     # It cycles through each key looking for a match to `_type` and returns it once found.
     target.attributes.each_key do |i|
-     return i.slice(0..-6) if i.match?(/[A-z]+_type/)
+     return i.slice(0..-6) if i.match(/[A-z]+_type/)
     end
   end
 

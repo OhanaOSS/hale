@@ -89,14 +89,16 @@ class API::V1::PostsController < ApplicationController
   end
 
   private
-    def post_params
+
+  def post_params
+    if params["media"].class == ActionDispatch::Http::UploadedFile
+      params.permit([:id, :body, :media, { :location => [] }, :attachment, :locked, :family_id, :member_id])
+    else
       params.require(:post).permit(:id, :attributes => [:body, :media, { :location => [] }, :attachment, :locked, :family_id, :member_id])
     end
-    def update_params
-      if params["media"].class == ActionDispatch::Http::UploadedFile
-        params.permit([:id, :body, :media, { :location => [] }, :attachment, :locked])
-      else
-        params.require(:post).permit(:id, :attributes => [:body, :media, { :location => [] }, :attachment, :locked])
-      end
-    end
+  end
+
+  def update_params
+    params.require(:post).permit(:id, :attributes => [:body, :media, { :location => [] }, :attachment, :locked])
+  end
 end

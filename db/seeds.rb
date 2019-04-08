@@ -38,29 +38,7 @@
 
   15.times do
 
-    new_member = Member.create(
-      name: Faker::Name.first_name,
-      surname: Faker::Name.last_name,
-      nickname: Faker::RickAndMorty.character,
-      birthday: Faker::Date.birthday(13, 65),
-      gender: rand(0..2),
-      email: Faker::Internet.email,
-      password: "password",
-      contacts: {
-
-      },
-      addresses: {
-        "home" => {
-          "street_address" => Faker::Address.street_address,
-          "secondary_address" => [nil, Faker::Address.secondary_address].sample,
-          "city" => Faker::Address.city,
-          "state" => Faker::Address.state_abbr,
-          "zip" => Faker::Address.zip_code,
-          "country" => "USA"
-        }
-      },
-      instagram: Faker::Internet.domain_word
-    )
+    new_member = FactoryBot.create(:member_profile)
     new_member.avatar.attach(io: File.open(Rails.root.to_s + "/spec/fixtures/images/img.jpg"), filename: "img.jpg", content_type: "image/jpg")
     FamilyMember.create(
       family_id: rand(1..Family.count),
@@ -68,6 +46,16 @@
       authorized_at: DateTime.now
     )  
   end
+  dev = FactoryBot.build(:member_profile)
+  dev.email = "dev@example.com"
+  dev.password = "password"
+  dev.save!
+  FamilyMember.create(
+    family_id: rand(1..Family.count),
+    member_id: dev.id,
+    authorized_at: DateTime.now,
+    user_role: "owner"
+  )  
   t3 = Time.now.to_i
   puts "Finished members in #{t3-t2} seconds and has been #{t3-t} seconds since start of seeds.rb."
   member_size = Member.count
