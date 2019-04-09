@@ -12,7 +12,7 @@ Ohana is in open beta under Version 1; Ohana will rename on offical release unde
 
   - Create Posts, Events (and RSVPs), Recipes with Comments and child Comment Replies.
   - Upload media with a Post, Event, Recipe, or Comment.
-  - Get notification system to let you know whe someone replied to your Post, Event, Recipe, or Comment; or another family member's.
+  - Get notification system to let you know when someone replied to your Post, Event, Recipe, or Comment; or another family member's.
   - See a family directory that family members can self update as phone numbers, emails, addresses, and more change with the years.
   - React to a Post, Event, Recipe, or Comment with an emotive: heart, like, dislike, haha, wow, sad, angry.
   - Search for family recipes by their name, description, tags, or ingredients.
@@ -72,6 +72,9 @@ $ git checkout -b [issue_number]-[description]
 Once you're done, open a pull request to `api-master`.
 
 If you want to be an even bigger help, we need help building out the documentation and reducing the barrier of entry to non-technical people.
+
+#### Docs
+You can view the docs here: [OhanaOSS/hale docs](https://documenter.getpostman.com/view/1274680/RW1hhFn9)
 
 ### Todos
 
