@@ -101,7 +101,7 @@ GNU AFFERO GENERAL PUBLIC LICENSE VERSION 3.0
    [Pundit]: <https://github.com/varvet/pundit>
    [Active Model Serializer]: <https://github.com/rails-api/active_model_serializers>
    [Docker]: <http://docker.com>
-   [Ohana Edge Docker]: <https://hub.docker.com/r/lassitergregg/Ohana/>
+   [Ohana Edge Docker]: <https://hub.docker.com/r/lassitergregg/ohana-hale>
    [PostgreSQL]: <http://twitter.github.com/bootstrap/>
    [roadmap]: <https://github.com/lassiter/Ohana/wiki/Roadmap-for-Ohana>
 
