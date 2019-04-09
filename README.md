@@ -65,7 +65,7 @@ Ohana uses RSpec for testing and here is how to get started. Build out following
 
 Clone the repo and create a branch to work in:
 ```sh
-$ git clone https://github.com/lassiter/Ohana.git
+$ git clone https://github.com/OhanaOSS/hale.git
 $ git checkout -b [issue_number]-[description]
 ```
 
